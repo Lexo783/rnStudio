@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "128215361195",
+    "project_id": "rnstudio-8757e",
+    "storage_bucket": "rnstudio-8757e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128215361195:android:889a6314697b4ca28df9ee",
+        "android_client_info": {
+          "package_name": "com.rnstudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128215361195-q1939jrqnquclr566lqh53t82t4fec15.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQv1Bvk5qt7oNz3917x_qxV7IBP8IHrvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128215361195-q1939jrqnquclr566lqh53t82t4fec15.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
