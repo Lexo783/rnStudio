@@ -1,11 +1,9 @@
 import configApi from './configApi/configApi';
 
 async function getMoviesPopular(page = null) {
-  console.log(
-    `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}`,
-  );
+  console.log(page);
   return fetch(
-    `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}`,
+    `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}&language=${configApi.LANGUAGE}`,
   )
     .then(response => {
       return response !== null ? response.json() : [];
