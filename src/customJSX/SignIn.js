@@ -3,11 +3,6 @@ import {Button} from 'react-native';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
-GoogleSignin.configure({
-  webClientId:
-    '128215361195-q1939jrqnquclr566lqh53t82t4fec15.apps.googleusercontent.com',
-});
-
 const GoogleSignIn = () => {
   return (
     <Button

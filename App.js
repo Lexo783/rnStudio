@@ -6,78 +6,56 @@
  * @flow strict-local
  */
 
-import React from 'react';
 import type {Node} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, View} from 'react-native';
+import auth from '@react-native-firebase/auth';
 import GoogleSignIn from './src/customJSX/SignIn';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import HomeScreen from './src/controller/HomeController';
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '128215361195-q1939jrqnquclr566lqh53t82t4fec15.apps.googleusercontent.com',
+    });
+  }, []);
+  // Handle user state changes
+  const onAuthStateChanged = data => {
+    if (initializing) {
+      setInitializing(false);
+    }
+
+    if (!data) {
+      return;
+    }
+    setUser(data);
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <GoogleSignIn />
-    </SafeAreaView>
-  );
-};
+  useEffect(() => {
+    return auth().onAuthStateChanged(onAuthStateChanged); // unsubscribe on unmount
+  }, []);
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  if (initializing) {
+    return null;
+  }
+
+  if (!user) {
+    return (
+      <SafeAreaView>
+        <View>
+          <GoogleSignIn />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  return <HomeScreen />;
+};
 
 export default App;
