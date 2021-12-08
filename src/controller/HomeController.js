@@ -19,6 +19,7 @@ import {
 import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
+import {shortdescription} from '../customJSX/DescriptionMovie';
 
 const movieVue = props => {
   const {navigation} = props;
@@ -86,7 +87,7 @@ const movieVue = props => {
 
       <TouchableWithoutFeedback
         onLongPress={() => longDescriptionn}
-        onPress={() => getItem(item)}>
+        onPress={() => shortdescription()}>
         <View style={styles.mainCardView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.subCardView}>
@@ -156,11 +157,6 @@ const movieVue = props => {
         }}
       />
     );
-  };
-
-  const getItem = item => {
-    // Function for click on an item
-    alert('Id : ' + item.id + ' Title : ' + item.title);
   };
 
   return (
