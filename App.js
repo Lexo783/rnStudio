@@ -12,7 +12,9 @@ import {SafeAreaView, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import GoogleSignIn from './src/customJSX/SignIn';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import HomeScreen from './src/controller/HomeController';
+import HomeVue from './src/controller/HomeController';
+import {NavigationContainer} from '@react-navigation/native';
+import AppRouter from './src/router/AppRouter';
 
 const App: () => Node = () => {
   // Set an initializing state whilst Firebase connects
@@ -45,17 +47,26 @@ const App: () => Node = () => {
     return null;
   }
 
-  if (!user) {
-    return (
-      <SafeAreaView>
-        <View>
-          <GoogleSignIn />
-        </View>
-      </SafeAreaView>
-    );
-  }
+  // if (!user) {
+  //   return (
+  //     <NavigationContainer>
+  //       <AppRouter />
+  //     </NavigationContainer>
+  //     /*
+  //     <SafeAreaView>
+  //       <View>
+  //         <GoogleSignIn />
+  //       </View>
+  //     </SafeAreaView>
+  //      */
+  //   );
+  // }
 
-  return <HomeScreen />;
+  return (
+    <NavigationContainer>
+      <AppRouter />
+    </NavigationContainer>
+  );
 };
 
 export default App;

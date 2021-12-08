@@ -2,7 +2,7 @@
 // https://aboutreact.com/infinite-list-view/
 
 // import React in our code
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 
 // import all the components we are going to use
 import {
@@ -20,37 +20,47 @@ import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
 
-const App = () => {
+const movieVue = props => {
+  const {navigation} = props;
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
 
-  useEffect(() => getData(), []);
+  const goToLongDescription = useCallback(() => {
+    navigation.navigate('longDescription', {
+      title: 'Description',
+      quantity: 10,
+    });
+  }, [navigation]);
 
-  const getData = () => {
-    console.log(offset);
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
     if (!loading && !isListEnd) {
-      console.log('getData');
       setLoading(true);
       // Service to get the data from the server to render
-      getMoviesPopular(offset)
-        .then(response => {
-          // Successful response from the API Call
-          console.log(response);
-          if (response.results.length > 0) {
-            setOffset(offset + 1);
-            // After the response increasing the offset
-            setDataSource([...dataSource, ...response.results]);
-            setLoading(false);
-          } else {
-            setIsListEnd(true);
-            setLoading(false);
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      try {
+        const response = await getMoviesPopular(offset);
+        // Successful response from the API Call
+        if (response.results.length > 0) {
+          setOffset(offset + 1);
+          // After the response increasing the offset
+          setDataSource([...dataSource, ...response.results]);
+          setLoading(false);
+        } else {
+          setIsListEnd(true);
+          setLoading(false);
+        }
+      } catch (e) {
+        //... gérer l'erreur
+      }
     }
   };
 
@@ -66,8 +76,6 @@ const App = () => {
   };
 
   const ItemView = ({item}) => {
-    console.log('https://image.tmdb.org/t/p/w500' + item.poster_path);
-
     return (
       /* Flat List Item
       <Text style={styles.itemStyle} >
@@ -76,7 +84,9 @@ const App = () => {
         {item.title.toUpperCase()}
       </Text>*/
 
-      <TouchableWithoutFeedback onPress={() => getItem(item)}>
+      <TouchableWithoutFeedback
+        onLongPress={() => longDescriptionn}
+        onPress={() => getItem(item)}>
         <View style={styles.mainCardView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.subCardView}>
@@ -209,4 +219,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default movieVue;
