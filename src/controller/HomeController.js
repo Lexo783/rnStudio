@@ -86,7 +86,7 @@ const movieVue = props => {
       </Text>*/
 
       <TouchableWithoutFeedback
-        onLongPress={() => longDescription}
+        onLongPress={() => shortdescription()}
         onPress={() => shortdescription()}>
         <View style={styles.mainCardView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
