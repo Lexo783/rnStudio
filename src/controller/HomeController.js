@@ -14,12 +14,14 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Image,
+  Modal,
+  Pressable,
 } from 'react-native';
 
 import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
-import {shortdescription} from '../customJSX/DescriptionMovie';
+import DescriptionMovieModal from '../customJSX/DescriptionMovieModal';
 
 const movieVue = props => {
   const {navigation} = props;
@@ -27,6 +29,7 @@ const movieVue = props => {
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   const goToLongDescription = useCallback(() => {
     navigation.navigate('longDescription', {
@@ -85,9 +88,7 @@ const movieVue = props => {
         {item.title.toUpperCase()}
       </Text>*/
 
-      <TouchableWithoutFeedback
-        onLongPress={() => shortdescription()}
-        onPress={() => shortdescription()}>
+      <TouchableWithoutFeedback onLongPress={() => setIsModalVisible(true)}>
         <View style={styles.mainCardView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.subCardView}>
@@ -169,6 +170,10 @@ const movieVue = props => {
         ListFooterComponent={renderFooter}
         onEndReached={getData}
         onEndReachedThreshold={0.5}
+      />
+      <DescriptionMovieModal
+        visible={isModalVisible}
+        dismissModal={() => setIsModalVisible(false)}
       />
     </SafeAreaView>
   );

@@ -1,24 +1,22 @@
 import React, {useState} from 'react';
 import {Modal, View, Text, StyleSheet, Pressable} from 'react-native';
 
-const shortdescription = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+const DescriptionMovieModal = ({visible, dismissModal}) => {
   return (
     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={visible}
         onRequestClose={() => {
-          alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+          dismissModal();
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Hello World!</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => dismissModal()}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
@@ -72,7 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const longDescription = ({route, navigation}) => {
-  return;
-};
-export {shortdescription, longDescription};
+export default DescriptionMovieModal;
