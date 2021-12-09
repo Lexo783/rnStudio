@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 // Example of Infinite Loading Listview in React Native using FlatList
 // https://aboutreact.com/infinite-list-view/
 
 // import React in our code
 import React, {useState, useEffect, useCallback} from 'react';
+
 
 // import all the components we are going to use
 import {
@@ -15,6 +17,9 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import moment from "moment";
+
+
 
 import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
@@ -124,7 +129,14 @@ const movieVue = props => {
                     color: Colors.gray,
                     fontSize: 12,
                   }}>
-                  {item.overview}
+                  {item.overview.substring(0, item.overview.length/3)+'...'}
+                  <Text
+                      style={{marginTop: 10,fontSize: 15, color:'black', justifyContent:'flex-end'}}
+                  >
+                      {item.release_date}
+
+                  </Text>
+
                 </Text>
               </View>
             </View>
