@@ -7,17 +7,18 @@ import {setUserData} from '../redux/reducers/user-reducer';
 
 const IsSignIn = () => {
   const [initializing, setInitializing] = useState(true);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const user1 = useSelector(s => s.user.user);
   //const [user, setUser] = useState();
 
+  /*
   console.log(user1);
   const getUser = useCallback(
     response => {
       dispatch(setUserData(response));
     },
     [dispatch],
-  );
+  );*/
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -36,7 +37,7 @@ const IsSignIn = () => {
     if (!data) {
       return;
     }
-    getUser(JSON.stringify(data));
+    //getUser(JSON.stringify(data));
     //setUser(data);
   };
 

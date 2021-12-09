@@ -6,10 +6,11 @@ import * as React from 'react';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import MovieVue from '../controller/HomeController';
+import MovieVue from '../component/Home';
 
 import isSignIn from '../utils/isSignIn';
-import GoogleSignIn from '../customJSX/SignIn';
+import SignIn from '../component/SignIn';
+import Register from '../component/Register';
 
 const nav = () => {
   return (
@@ -20,7 +21,18 @@ const nav = () => {
     </Stack.Navigator>
   );
 };
+const NavAuth = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Auth">
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  );
+};
 const appRouter = () => {
+  console.log(isSignIn());
   return isSignIn() != null ? (
     <Tab.Navigator>
       <Tab.Screen
@@ -30,7 +42,7 @@ const appRouter = () => {
       />
     </Tab.Navigator>
   ) : (
-    <GoogleSignIn />
+    <NavAuth />
   );
 };
 

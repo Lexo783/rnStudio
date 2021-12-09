@@ -9,13 +9,15 @@ import {
 } from 'react-native';
 import {registerUser} from '../model/firebase/UserFirebase';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const register = () => {
     const data = {email, password};
-    console.log(registerUser(data));
+    //return user
+    registerUser(data);
+    navigation.goBack();
   };
 
   return (
