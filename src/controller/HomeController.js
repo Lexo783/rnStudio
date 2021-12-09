@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   mainCardView: {
-    height: 90,
     alignItems: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
