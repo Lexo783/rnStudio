@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Modal, View, Text, StyleSheet, Pressable} from 'react-native';
 
-const shortdescription = () => {
+const Shortdescription = () => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.centeredView}>
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
 const longDescription = ({route, navigation}) => {
   return;
 };
-export {shortdescription, longDescription};
+export default {Shortdescription, longDescription};

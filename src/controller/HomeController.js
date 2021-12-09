@@ -16,12 +16,12 @@ import {
   Image,
 } from 'react-native';
 
-import {getMoviesPopular} from '../model/MovieApi';
+import GetMoviesPopular from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
 import {shortdescription} from '../customJSX/DescriptionMovie';
 
-const movieVue = props => {
+const MovieVue = props => {
   const {navigation} = props;
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
@@ -48,7 +48,7 @@ const movieVue = props => {
       setLoading(true);
       // Service to get the data from the server to render
       try {
-        const response = await getMoviesPopular(offset);
+        const response = await GetMoviesPopular(offset);
         // Successful response from the API Call
         if (response.results.length > 0) {
           setOffset(offset + 1);
@@ -215,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default movieVue;
+export default MovieVue;

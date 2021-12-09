@@ -1,7 +1,5 @@
 import configApi from './configApi/configApi';
-
-async function getMoviesPopular(page = null) {
-  console.log(page);
+async function GetMoviesPopular(page = null) {
   return fetch(
     `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}&language=${configApi.LANGUAGE}`,
   )
@@ -13,4 +11,4 @@ async function getMoviesPopular(page = null) {
     });
 }
 
-export {getMoviesPopular};
+export default GetMoviesPopular;
