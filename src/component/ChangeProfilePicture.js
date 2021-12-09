@@ -14,7 +14,7 @@ import {
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-const changeProfilePicture = () => {
+const ChangeProfilePicture = () => {
   const [filePath, setFilePath] = useState({});
 
   const cameraPermission = async () => {
@@ -159,7 +159,7 @@ const changeProfilePicture = () => {
   );
 };
 
-export default changeProfilePicture;
+export default ChangeProfilePicture;
 
 const styles = StyleSheet.create({
   container: {

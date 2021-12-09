@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const ProfileScreen = props => {
+const EditUserProfileScreen = props => {
   const {navigation} = props;
 
   return (
@@ -36,7 +36,7 @@ const ProfileScreen = props => {
   );
 };
 
-export default ProfileScreen;
+export default EditUserProfileScreen;
 
 const styles = StyleSheet.create({
   profileContainer: {

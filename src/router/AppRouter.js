@@ -11,6 +11,8 @@ import MovieVue from '../component/Home';
 import isSignIn from '../utils/isSignIn';
 import SignIn from '../component/SignIn';
 import Register from '../component/Register';
+import EditUserProfileScreen from '../component/EditUserProfileScreen';
+import ChangeProfilePicture from '../component/ChangeProfilePicture';
 
 const nav = () => {
   return (
@@ -31,6 +33,18 @@ const NavAuth = () => {
     </Stack.Navigator>
   );
 };
+
+const ProfilNav = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Profile">
+      <Stack.Screen name="Profile" component={EditUserProfileScreen} />
+      <Stack.Screen name="Edit" component={ChangeProfilePicture} />
+    </Stack.Navigator>
+  );
+};
+
 const appRouter = () => {
   console.log(isSignIn());
   return isSignIn() != null ? (
@@ -40,6 +54,7 @@ const appRouter = () => {
         name="HomeTab"
         component={nav}
       />
+      <Tab.Screen name="Profile" component={ProfilNav} />
     </Tab.Navigator>
   ) : (
     <NavAuth />
