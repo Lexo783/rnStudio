@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
 const EditUserProfileScreen = props => {
   const {navigation} = props;
+  const image = useSelector(s => s.user.image);
 
   return (
     <SafeAreaView style={styles.profileContainer}>
@@ -19,7 +21,7 @@ const EditUserProfileScreen = props => {
             <Image
               style={styles.userAvatar}
               source={{
-                uri: 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
+                uri: image,
               }}
             />
           </TouchableOpacity>

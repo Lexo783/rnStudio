@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import configApi from '../model/configApi/configApi';
 import {useDispatch, useSelector} from 'react-redux';
-import {setLikeData} from '../redux/reducers/LikeReducer';
+import {setLikeData} from '../redux/reducers/UserReducer';
 
 const DescriptionMovieModal = ({navigation, route}) => {
   const data = route.params.item;
@@ -21,7 +21,7 @@ const DescriptionMovieModal = ({navigation, route}) => {
     },
     [dispatch],
   );
-  const like = useSelector(s => s.like.like);
+  const like = useSelector(s => s.user.like);
 
   const goBack = useCallback(() => {
     navigation.goBack();

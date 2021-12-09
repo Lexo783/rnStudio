@@ -41,8 +41,16 @@ const ProfilNav = () => {
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="Profile">
-      <Stack.Screen name="Profile" component={EditUserProfileScreen} />
-      <Stack.Screen name="Edit" component={ChangeProfilePicture} />
+      <Stack.Screen
+        name="ProfileUser"
+        options={{headerShown: false}}
+        component={EditUserProfileScreen}
+      />
+      <Stack.Screen
+        options={{title: ''}}
+        name="Edit"
+        component={ChangeProfilePicture}
+      />
     </Stack.Navigator>
   );
 };

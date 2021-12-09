@@ -38,6 +38,7 @@ const SignIn = ({navigation}) => {
           style={styles.input}
           placeholder="ex: John"
           onChangeText={email => setEmail(email)}
+          autoCapitalize="none"
           textContentType={'emailAddress'}
         />
         <Text style={styles.text}>Votre Mot de passe</Text>
@@ -46,6 +47,7 @@ const SignIn = ({navigation}) => {
           placeholder="ex: John"
           onChangeText={password => setPassword(password)}
           secureTextEntry={true}
+          autoCapitalize="none"
           textContentType={'password'}
         />
         <Button title="Press me" onPress={() => firebaseSignIn()} />

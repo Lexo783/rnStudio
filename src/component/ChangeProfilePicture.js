@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import {
   SafeAreaView,
@@ -13,9 +13,28 @@ import {
 } from 'react-native';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {setImageData} from '../redux/reducers/UserReducer';
+import {useDispatch, useSelector} from 'react-redux';
 
-const ChangeProfilePicture = () => {
+const ChangeProfilePicture = ({navigation}) => {
   const [filePath, setFilePath] = useState({});
+  const dispatch = useDispatch();
+  const getImage = useCallback(
+    response => {
+      dispatch(setImageData(response));
+    },
+    [dispatch],
+  );
+  const image = useSelector(s => s.user.image);
+
+  console.log(image);
+  const updateImage = img => {
+    getImage(img);
+  };
+
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const cameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -31,7 +50,6 @@ const ChangeProfilePicture = () => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         return false;
       }
     } else {
@@ -74,29 +92,21 @@ const ChangeProfilePicture = () => {
     let isStoragePermitted = await writeInGalleryPermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, res => {
-        console.log('Response = ', res);
-
         if (res.userCancelled) {
           alert('User cancelled camera picker');
           return;
-        } else if (res.errorCode == 'camera_unavailable') {
+        } else if (res.errorCode === 'camera_unavailable') {
           alert('Camera not available on device');
           return;
-        } else if (res.errorCode == 'permission') {
+        } else if (res.errorCode === 'permission') {
           alert('Permission not satisfied');
           return;
-        } else if (res.errorCode == 'others') {
+        } else if (res.errorCode === 'others') {
           alert(res.errorMessage);
           return;
         }
-        console.log('base64 -> ', res.base64);
-        console.log('uri -> ', res.uri);
-        console.log('width -> ', res.width);
-        console.log('height -> ', res.height);
-        console.log('fileSize -> ', res.fileSize);
-        console.log('type -> ', res.type);
-        console.log('fileName -> ', res.fileName);
         setFilePath(res);
+        updateImage(res.assets[0].uri);
       });
     }
   };
@@ -109,38 +119,33 @@ const ChangeProfilePicture = () => {
       quality: 1,
     };
     launchImageLibrary(options, res => {
-      console.log('Response = ', res);
-
       if (res.userCancelled) {
         alert('User cancelled camera picker');
         return;
-      } else if (res.errorCode == 'camera_unavailable') {
+      } else if (res.errorCode === 'camera_unavailable') {
         alert('Camera not available on device');
         return;
-      } else if (res.errorCode == 'permission') {
+      } else if (res.errorCode === 'permission') {
         alert('Permission not satisfied');
         return;
-      } else if (res.errorCode == 'others') {
+      } else if (res.errorCode === 'others') {
         alert(res.errorMessage);
         return;
       }
-      console.log('base64 -> ', res.base64);
-      console.log('uri -> ', res.uri);
-      console.log('width -> ', res.width);
-      console.log('height -> ', res.height);
-      console.log('fileSize -> ', res.fileSize);
-      console.log('type -> ', res.type);
-      console.log('fileName -> ', res.fileName);
       setFilePath(res);
+      updateImage(res.assets[0].uri);
+      console.log(res);
     });
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => goBack()}>
+        <Text>BACK</Text>
+      </TouchableOpacity>
       <Text style={styles.titleText}>Modifier ma photo de profil</Text>
       <View style={styles.editAvatarContainer}>
-        <Image source={{uri: filePath.uri}} style={styles.img} />
-        <Text style={styles.pathText}>{filePath.uri}</Text>
+        <Image source={{uri: image}} style={styles.img} />
         <TouchableOpacity
           style={styles.getImageBtn}
           activeOpacity={0.5}
