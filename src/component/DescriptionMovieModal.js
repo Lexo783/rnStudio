@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Modal, View, Text, StyleSheet, Pressable} from 'react-native';
 
 const DescriptionMovieModal = ({visible, dismissModal}) => {

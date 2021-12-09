@@ -21,16 +21,15 @@ import {
 import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
-import DescriptionMovieModal from '../customJSX/DescriptionMovieModal';
+import DescriptionMovieModal from './DescriptionMovieModal';
 
-const movieVue = props => {
+const Home = props => {
   const {navigation} = props;
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(true);
-
   const goToLongDescription = useCallback(() => {
     navigation.navigate('longDescription', {
       title: 'Description',
@@ -191,7 +190,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   mainCardView: {
-    height: 90,
     alignItems: 'center',
     backgroundColor: Colors.white,
     borderRadius: 15,
@@ -220,4 +218,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default movieVue;
+export default Home;

@@ -10,11 +10,10 @@ import type {Node} from 'react';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import GoogleSignIn from './src/customJSX/SignIn';
+import GoogleSignIn from './src/component/SignIn';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import HomeVue from './src/controller/HomeController';
-import {NavigationContainer} from '@react-navigation/native';
-import AppRouter from './src/router/AppRouter';
+
+import Register from './src/component/Register';
 
 const App: () => Node = () => {
   // Set an initializing state whilst Firebase connects
@@ -59,14 +58,14 @@ const App: () => Node = () => {
   //       </View>
   //     </SafeAreaView>
   //      */
-  //   );
-  // }
-
+  //  );
+  /*
   return (
     <NavigationContainer>
       <AppRouter />
     </NavigationContainer>
-  );
+  );*/
+  return <Register />;
 };
 
 export default App;

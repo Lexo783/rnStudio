@@ -6,26 +6,29 @@ import * as React from 'react';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import movieVue from '../controller/HomeController';
+import Home from '../component/Home';
+import SignInBis from '../component/SignInBis';
 
 const nav = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="Home">
-      <Stack.Screen name="HomeStack" component={movieVue} />
+      <Stack.Screen name="HomeStack" component={Home} />
     </Stack.Navigator>
   );
 };
 const appRouter = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        options={{headerShown: false}}
-        name="HomeTab"
-        component={nav}
-      />
-    </Tab.Navigator>
+    <SignInBis />
+    /*
+  <Tab.Navigator>
+    <Tab.Screen
+      options={{headerShown: false}}
+      name="HomeTab"
+      component={nav}
+    />
+  </Tab.Navigator>*/
   );
 };
 
