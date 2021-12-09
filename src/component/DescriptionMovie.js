@@ -42,8 +42,6 @@ const DescriptionMovieModal = ({navigation, route}) => {
     getLike();
   }, []);*/
 
-  console.log(like);
-
   return (
     <SafeAreaView style={{flex: 1, display: 'flex'}}>
       <View style={{flex: 1, display: 'flex'}}>

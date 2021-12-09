@@ -2,7 +2,7 @@
 // https://aboutreact.com/infinite-list-view/
 
 // import React in our code
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
 
 // import all the components we are going to use
 import {
@@ -14,6 +14,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Image,
+  TextInput,
 } from 'react-native';
 
 import {getMoviesPopular} from '../model/MovieApi';
@@ -26,6 +27,7 @@ const Home = props => {
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
+  const [filter, setFilter] = useState('');
 
   const goToLongDescription = useCallback(
     item => {
@@ -65,6 +67,11 @@ const Home = props => {
       }
     }
   };
+  const dataFiltered = useMemo(() => {
+    if (dataSource !== []) {
+      return dataSource.filter(o => o.original_title.includes(filter));
+    }
+  }, [dataSource, filter]);
 
   const renderFooter = () => {
     return (
@@ -160,8 +167,21 @@ const Home = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <TextInput
+        style={{
+          borderColor: 'gray',
+          borderWidth: 1,
+          borderStyle: 'solid',
+          padding: 10,
+          fontSize: 18,
+          borderRadius: 10,
+        }}
+        placeholder={'Recherche...'}
+        value={filter}
+        onChangeText={setFilter}
+      />
       <FlatList
-        data={dataSource}
+        data={dataFiltered}
         keyExtractor={(item, index) => index.toString()}
         ItemSeparatorComponent={ItemSeparatorView}
         renderItem={ItemView}

@@ -4,6 +4,9 @@ async function getMoviesPopular(page = null) {
   console.log(
     `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}&language=${configApi.LANGUAGE}`,
   );
+  if (page >= 20) {
+    return;
+  }
   return fetch(
     `${configApi.PATH_API}/3/movie/popular?${configApi.API_KEY}&page=${page}&language=${configApi.LANGUAGE}`,
   )

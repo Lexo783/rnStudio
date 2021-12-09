@@ -27,7 +27,6 @@ const ChangeProfilePicture = ({navigation}) => {
   );
   const image = useSelector(s => s.user.image);
 
-  console.log(image);
   const updateImage = img => {
     getImage(img);
   };
