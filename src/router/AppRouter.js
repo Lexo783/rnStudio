@@ -6,29 +6,31 @@ import * as React from 'react';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import Home from '../component/Home';
-import SignInBis from '../component/SignInBis';
+import MovieVue from '../controller/HomeController';
+
+import isSignIn from '../utils/isSignIn';
+import GoogleSignIn from '../customJSX/SignIn';
 
 const nav = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="Home">
-      <Stack.Screen name="HomeStack" component={Home} />
+      <Stack.Screen name="HomeStack" component={MovieVue} />
     </Stack.Navigator>
   );
 };
 const appRouter = () => {
-  return (
-    <SignInBis />
-    /*
-  <Tab.Navigator>
-    <Tab.Screen
-      options={{headerShown: false}}
-      name="HomeTab"
-      component={nav}
-    />
-  </Tab.Navigator>*/
+  return isSignIn() != null ? (
+    <Tab.Navigator>
+      <Tab.Screen
+        options={{headerShown: false}}
+        name="HomeTab"
+        component={nav}
+      />
+    </Tab.Navigator>
+  ) : (
+    <GoogleSignIn />
   );
 };
 

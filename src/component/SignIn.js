@@ -1,16 +1,20 @@
 import React from 'react';
-import {Button} from 'react-native';
+import {Button, SafeAreaView} from 'react-native';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
 const GoogleSignIn = () => {
   return (
-    <Button
-      title="Google Sign-In"
-      onPress={() =>
-        onGoogleButtonPress().then(() => console.log('Signed in with Google!'))
-      }
-    />
+    <SafeAreaView>
+      <Button
+        title="Google Sign-In"
+        onPress={() =>
+          onGoogleButtonPress().then(() =>
+            console.log('Signed in with Google!'),
+          )
+        }
+      />
+    </SafeAreaView>
   );
 };
 
