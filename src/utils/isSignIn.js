@@ -3,22 +3,11 @@ import auth from '@react-native-firebase/auth';
 //import {initializeApp} from 'firebase/app';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserData} from '../redux/reducers/user-reducer';
+import {setUserData} from '../redux/reducers/UserReducer';
 
 const IsSignIn = () => {
   const [initializing, setInitializing] = useState(true);
-  //const dispatch = useDispatch();
-  const user1 = useSelector(s => s.user.user);
-  //const [user, setUser] = useState();
-
-  /*
-  console.log(user1);
-  const getUser = useCallback(
-    response => {
-      dispatch(setUserData(response));
-    },
-    [dispatch],
-  );*/
+  const user = useSelector(s => s.user.user);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -48,7 +37,7 @@ const IsSignIn = () => {
   if (initializing) {
     return null;
   }
-  return user1 === null ? null : user1;
+  return user === null ? null : user;
 };
 
 export default IsSignIn;

@@ -1,23 +1,48 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
   Image,
   Text,
   ScrollView,
-  TouchableHighlight,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import configApi from '../model/configApi/configApi';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLikeData} from '../redux/reducers/LikeReducer';
 
 const DescriptionMovieModal = ({navigation, route}) => {
   const data = route.params.item;
-  console.log(data);
-  console.log(configApi.LESS_IMAGE_ADDRESS + data.poster_path);
+  const dispatch = useDispatch();
+  const getLike = useCallback(
+    response => {
+      dispatch(setLikeData(response));
+    },
+    [dispatch],
+  );
+  const like = useSelector(s => s.like.like);
 
   const goBack = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
+
+  const addLike = id => {
+    let newArray = [...like];
+    if (like.includes(id)) {
+      const index = newArray.indexOf(id);
+      newArray.splice(index, 1);
+    } else {
+      newArray.push(id);
+    }
+    getLike(newArray);
+  };
+  /*
+  useEffect(() => {
+    getLike();
+  }, []);*/
+
+  console.log(like);
 
   return (
     <SafeAreaView style={{flex: 1, display: 'flex'}}>
@@ -35,6 +60,10 @@ const DescriptionMovieModal = ({navigation, route}) => {
           }}
         />
         <Text>{data.title}</Text>
+        <Button
+          title={like.includes(data.id) ? 'Vous avez likez' : 'Like'}
+          onPress={() => addLike(data.id)}
+        />
         <ScrollView>
           <Text>description : {data.overview}</Text>
           <Text>nombre de vote : {data.vote_count}</Text>

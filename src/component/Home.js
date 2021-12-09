@@ -14,8 +14,6 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Image,
-  Modal,
-  Pressable,
 } from 'react-native';
 
 import {getMoviesPopular} from '../model/MovieApi';

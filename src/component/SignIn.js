@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {getSignIn} from '../model/firebase/UserFirebase';
 import {useDispatch} from 'react-redux';
-import {setUserData} from '../redux/reducers/user-reducer';
+import {setUserData} from '../redux/reducers/UserReducer';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');

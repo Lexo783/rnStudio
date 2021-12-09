@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import userReducer from './reducers/user-reducer';
+import userReducer from './reducers/UserReducer';
 import {
   persistStore,
   persistReducer,
@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import likeReducer from './reducers/LikeReducer';
 
 const persistConfig = {
   key: 'root',
@@ -18,11 +19,13 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const userPersistedReducer = persistReducer(persistConfig, userReducer);
+const likePersistedReducer = persistReducer(persistConfig, likeReducer);
 
 export const store = configureStore({
   reducer: {
-    user: persistedReducer,
+    user: userPersistedReducer,
+    like: likePersistedReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
