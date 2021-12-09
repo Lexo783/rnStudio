@@ -21,7 +21,6 @@ import {
 import {getMoviesPopular} from '../model/MovieApi';
 import Colors from 'react-native/Libraries/NewAppScreen/components/Colors';
 import configApi from '../model/configApi/configApi';
-import DescriptionMovieModal from './DescriptionMovieModal';
 
 const Home = props => {
   const {navigation} = props;
@@ -29,13 +28,15 @@ const Home = props => {
   const [dataSource, setDataSource] = useState([]);
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(true);
-  const goToLongDescription = useCallback(() => {
-    navigation.navigate('longDescription', {
-      title: 'Description',
-      quantity: 10,
-    });
-  }, [navigation]);
+
+  const goToLongDescription = useCallback(
+    item => {
+      navigation.navigate('Description', {
+        item: item,
+      });
+    },
+    [navigation],
+  );
 
   const goBack = useCallback(() => {
     navigation.goBack();
@@ -87,7 +88,7 @@ const Home = props => {
         {item.title.toUpperCase()}
       </Text>*/
 
-      <TouchableWithoutFeedback onLongPress={() => setIsModalVisible(true)}>
+      <TouchableWithoutFeedback onPress={() => goToLongDescription(item)}>
         <View style={styles.mainCardView}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.subCardView}>
@@ -170,12 +171,14 @@ const Home = props => {
         onEndReached={getData}
         onEndReachedThreshold={0.5}
       />
-      <DescriptionMovieModal
+    </SafeAreaView>
+  );
+  /*
+  <DescriptionMovieModal
         visible={isModalVisible}
         dismissModal={() => setIsModalVisible(false)}
       />
-    </SafeAreaView>
-  );
+   */
 };
 
 const styles = StyleSheet.create({

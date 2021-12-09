@@ -49,7 +49,10 @@ const SignIn = ({navigation}) => {
           textContentType={'password'}
         />
         <Button title="Press me" onPress={() => firebaseSignIn()} />
-        <Button title="Press me" onPress={() => navigation.push('Register')} />
+        <Button
+          title="Inscription"
+          onPress={() => navigation.push('Register')}
+        />
       </View>
     </SafeAreaView>
   );

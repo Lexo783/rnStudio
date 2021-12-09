@@ -13,6 +13,7 @@ import SignIn from '../component/SignIn';
 import Register from '../component/Register';
 import EditUserProfileScreen from '../component/EditUserProfileScreen';
 import ChangeProfilePicture from '../component/ChangeProfilePicture';
+import DescriptionMovie from '../component/DescriptionMovie';
 
 const nav = () => {
   return (
@@ -20,6 +21,7 @@ const nav = () => {
       screenOptions={{headerShown: false}}
       initialRouteName="Home">
       <Stack.Screen name="HomeStack" component={MovieVue} />
+      <Stack.Screen name="Description" component={DescriptionMovie} />
     </Stack.Navigator>
   );
 };
