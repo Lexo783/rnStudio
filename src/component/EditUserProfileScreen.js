@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   Image,
@@ -23,12 +23,16 @@ const EditUserProfileScreen = props => {
           <Image
             style={styles.userAvatar}
             source={{
-              uri: image ? image : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
+              uri: image
+                ? image
+                : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
             }}
           />
         </View>
       </View>
-      <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('Edit')}>
+      <TouchableOpacity
+        style={styles.editBtn}
+        onPress={() => navigation.navigate('Edit')}>
         <Text style={styles.editBtnText}>Modifier mon profil</Text>
       </TouchableOpacity>
     </SafeAreaView>

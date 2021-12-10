@@ -46,7 +46,6 @@ const DescriptionMovieModal = ({navigation, route}) => {
             height: '50%',
           }}
         />
-        
         <ScrollView>
           <Text style={styles.movieTitle}>{data.title}</Text>
           <View style={styles.descMovieContainer}>
@@ -73,7 +72,9 @@ const DescriptionMovieModal = ({navigation, route}) => {
           </View>
 
           <View style={styles.dateInfo}>
-            <Text style={styles.date}>Date de création : {data.release_date}</Text>
+            <Text style={styles.date}>
+              Date de création : {data.release_date}
+            </Text>
           </View>
         </ScrollView>
       </View>
@@ -133,5 +134,5 @@ const styles = StyleSheet.create({
   date: {
     textAlign: 'center',
     color: '#777777',
-  }
-})
+  },
+});

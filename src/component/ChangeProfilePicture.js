@@ -134,7 +134,7 @@ const ChangeProfilePicture = ({navigation}) => {
       }
       console.log(res);
       setFilePath(res);
-      if(res.assets[0].uri !== []) {  
+      if (res.assets[0].uri !== []) {
         updateImage(res.assets[0].uri);
       }
     });
@@ -144,7 +144,14 @@ const ChangeProfilePicture = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>Modifier ma photo de profil</Text>
       <View style={styles.editAvatarContainer}>
-        <Image source={{uri: image ? image : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg'}} style={styles.img} />
+        <Image
+          source={{
+            uri: image
+              ? image
+              : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
+          }}
+          style={styles.img}
+        />
         <TouchableOpacity
           style={styles.getImageBtn}
           activeOpacity={0.5}
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     paddingVertical: 20,
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
   },
   pathText: {
     padding: 10,
