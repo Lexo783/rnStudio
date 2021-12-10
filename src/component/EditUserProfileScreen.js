@@ -12,27 +12,28 @@ import {useSelector} from 'react-redux';
 const EditUserProfileScreen = props => {
   const {navigation} = props;
   const image = useSelector(s => s.user.image);
+  const user = useSelector(s => s.user.user);
+
+  console.log(user);
 
   return (
     <SafeAreaView style={styles.profileContainer}>
       <View style={styles.userData}>
         <View style={styles.user}>
-          <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-            <Image
-              style={styles.userAvatar}
-              source={{
-                uri: image,
-              }}
-            />
-          </TouchableOpacity>
+          <Image
+            style={styles.userAvatar}
+            source={{
+              uri: image ? image : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
+            }}
+          />
           <View style={styles.userInfos}>
-            <Text style={styles.username}>John Doe</Text>
-            <Text style={styles.pseudo}>mail@mail.com</Text>
+            <Text style={styles.subtitle}>Mon adresse mail</Text>
+            <Text style={styles.pseudo}>{user.user.mail}</Text>
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.editBtn} onPress={() => {}}>
-        <Text>Modifier mon profil</Text>
+      <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('Edit')}>
+        <Text style={styles.editBtnText}>Modifier mon profil</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 150 / 2,
   },
-  username: {
+  subtitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 15,
@@ -82,8 +83,12 @@ const styles = StyleSheet.create({
     color: '#777777',
   },
   editBtn: {
-    backgroundColor: '#23A25C',
+    backgroundColor: '#1F6FEB',
     borderRadius: 15,
     padding: 12,
+  },
+  editBtnText: {
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 });

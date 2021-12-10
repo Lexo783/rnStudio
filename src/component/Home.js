@@ -31,16 +31,12 @@ const Home = props => {
 
   const goToLongDescription = useCallback(
     item => {
-      navigation.navigate('Description', {
+      navigation.navigate('Movie', {
         item: item,
       });
     },
     [navigation],
   );
-
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
 
   useEffect(() => {
     getData();
@@ -67,6 +63,7 @@ const Home = props => {
       }
     }
   };
+
   const dataFiltered = useMemo(() => {
     if (dataSource !== []) {
       return dataSource.filter(o => o.original_title.includes(filter));
@@ -86,104 +83,42 @@ const Home = props => {
 
   const ItemView = ({item}) => {
     return (
-      /* Flat List Item
-      <Text style={styles.itemStyle} >
-        {item.id}
-        {'.'}
-        {item.title.toUpperCase()}
-      </Text>*/
-
       <TouchableWithoutFeedback onPress={() => goToLongDescription(item)}>
         <View style={styles.mainCardView}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={styles.subCardContainer}>
             <View style={styles.subCardView}>
-              <Image
-                source={{
-                  uri: configApi.LESS_IMAGE_ADDRESS + item.poster_path,
-                }}
-                resizeMode="cover"
-                style={{
-                  borderRadius: 25,
-                  height: 50,
-                  width: 50,
-                }}
-              />
+              <Image style={styles.movieImg}
+                source={{uri: configApi.LESS_IMAGE_ADDRESS + item.poster_path,}}
+                resizeMode="cover" />
+              <Text style={styles.votecount}>{item.vote_count}</Text>
             </View>
-            <View style={{marginLeft: 12}}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: 'bold',
-                  textTransform: 'capitalize',
-                }}>
-                {item.title}
-              </Text>
-              <View
-                style={{
-                  marginTop: 4,
-                  borderWidth: 0,
-                  width: '85%',
-                }}>
-                <Text
-                  style={{
-                    color: Colors.gray,
-                    fontSize: 12,
-                  }}>
-                  {item.overview}
-                </Text>
+
+            <View style={styles.movieInfos}>
+              <View style={styles.movieTitleContainer}>
+                <Text style={styles.movieTitle}>{item.title}</Text>
+              </View>
+              <View style={styles.resumeContainer}>
+                <Text style={styles.resume} numberOfLines={5}>{item.overview}</Text>
               </View>
             </View>
           </View>
-          <View
-            style={{
-              height: 25,
-              backgroundColor: Colors.pink,
-              borderWidth: 0,
-              width: 25,
-              marginLeft: -26,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-            }}
-          />
         </View>
       </TouchableWithoutFeedback>
     );
   };
 
-  const ItemSeparatorView = () => {
-    return (
-      // Flat List Item Separator
-      <View
-        style={{
-          height: 0.5,
-          width: '100%',
-          backgroundColor: '#C8C8C8',
-        }}
-      />
-    );
-  };
-
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.searchBarContainer}>
       <TextInput
-        style={{
-          borderColor: 'gray',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          padding: 10,
-          fontSize: 18,
-          borderRadius: 10,
-        }}
+        style={styles.searchBar}
         placeholder={'Recherche...'}
         value={filter}
         onChangeText={setFilter}
       />
+
       <FlatList
         data={dataFiltered}
         keyExtractor={(item, index) => index.toString()}
-        ItemSeparatorComponent={ItemSeparatorView}
         renderItem={ItemView}
         ListFooterComponent={renderFooter}
         onEndReached={getData}
@@ -200,6 +135,17 @@ const Home = props => {
 };
 
 const styles = StyleSheet.create({
+  searchBarContainer: {
+    flex: 1
+  },
+  searchBar: {
+    backgroundColor: '#FFF',
+    borderColor: '#DDDDDD',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    padding: 10,
+    fontSize: 18,
+  },
   footer: {
     padding: 10,
     justifyContent: 'center',
@@ -213,7 +159,6 @@ const styles = StyleSheet.create({
   mainCardView: {
     alignItems: 'center',
     backgroundColor: Colors.white,
-    borderRadius: 15,
     shadowColor: Colors.shadow,
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 1,
@@ -221,21 +166,49 @@ const styles = StyleSheet.create({
     elevation: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 16,
-    paddingRight: 14,
-    marginTop: 6,
-    marginBottom: 6,
-    marginLeft: 16,
-    marginRight: 16,
+    padding: 20,
+    margin: 6,
+    height: 100,
   },
-  subCardView: {
+  movieInfos: {
+    marginLeft: 20,
+  },
+  movieTitleContainer: {
+    flexDirection: 'row',
+  }, 
+  movieTitle: {
+    flex: 1,
+    flexWrap: 'wrap',
+    fontSize: 14,
+    color: Colors.black,
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+  },
+  movieImg: {
+    borderColor: '#DDD',
+    borderWidth: 2,
+    borderRadius: 25,
     height: 50,
     width: 50,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderStyle: 'solid',
+  },
+  resumeContainer: {
+    borderWidth: 0,
+    width: '85%',
+  },
+  resume: {
+    color: Colors.gray,
+    fontSize: 12,
+  },
+  subCardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  subCardView: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  votecount: {
+    color: '#1F6FEB',
   },
 });
 
