@@ -1,10 +1,5 @@
-// Example of Infinite Loading Listview in React Native using FlatList
-// https://aboutreact.com/infinite-list-view/
-
-// import React in our code
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
 
-// import all the components we are going to use
 import {
   SafeAreaView,
   View,
@@ -59,7 +54,7 @@ const Home = props => {
           setLoading(false);
         }
       } catch (e) {
-        //... gérer l'erreur
+        console.log(e);
       }
     }
   };
@@ -72,7 +67,6 @@ const Home = props => {
 
   const renderFooter = () => {
     return (
-      // Footer View with Loader
       <View style={styles.footer}>
         {loading ? (
           <ActivityIndicator color="black" style={{margin: 15}} />
@@ -86,19 +80,22 @@ const Home = props => {
       <TouchableWithoutFeedback onPress={() => goToLongDescription(item)}>
         <View style={styles.mainCardView}>
           <View style={styles.subCardContainer}>
-            <View style={styles.subCardView}>
-              <Image style={styles.movieImg}
-                source={{uri: configApi.LESS_IMAGE_ADDRESS + item.poster_path,}}
-                resizeMode="cover" />
-              <Text style={styles.votecount}>{item.vote_count}</Text>
+            <View style={[styles.subCardView, {flex: 1}]}>
+              <Image
+                style={styles.movieImg}
+                source={{uri: configApi.LESS_IMAGE_ADDRESS + item.poster_path}}
+                resizeMode="cover"
+              />
+              <Text style={styles.votecount}>{item.vote_count + ' votes'}</Text>
             </View>
-
-            <View style={styles.movieInfos}>
+            <View style={[styles.movieInfos, {flex: 3}]}>
               <View style={styles.movieTitleContainer}>
                 <Text style={styles.movieTitle}>{item.title}</Text>
               </View>
               <View style={styles.resumeContainer}>
-                <Text style={styles.resume} numberOfLines={5}>{item.overview}</Text>
+                <Text style={styles.resume} numberOfLines={5}>
+                  {item.overview}
+                </Text>
               </View>
             </View>
           </View>
@@ -126,17 +123,11 @@ const Home = props => {
       />
     </SafeAreaView>
   );
-  /*
-  <DescriptionMovieModal
-        visible={isModalVisible}
-        dismissModal={() => setIsModalVisible(false)}
-      />
-   */
 };
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    flex: 1
+    flex: 1,
   },
   searchBar: {
     backgroundColor: '#FFF',
@@ -161,8 +152,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     shadowColor: Colors.shadow,
     shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 1,
-    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
     elevation: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -175,7 +166,7 @@ const styles = StyleSheet.create({
   },
   movieTitleContainer: {
     flexDirection: 'row',
-  }, 
+  },
   movieTitle: {
     flex: 1,
     flexWrap: 'wrap',
@@ -200,8 +191,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   subCardContainer: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   subCardView: {
     alignItems: 'center',

@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as React from 'react';
 
@@ -18,25 +19,39 @@ import DescriptionMovie from '../component/DescriptionMovie';
 const nav = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen options={{headerShown: false}} name="HomeStack" component={MovieVue} />
-      <Stack.Screen options={{title: ""}} name="Movie" component={DescriptionMovie} />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="HomeStack"
+        component={MovieVue}
+      />
+      <Stack.Screen
+        options={{title: ''}}
+        name="Movie"
+        component={DescriptionMovie}
+      />
     </Stack.Navigator>
   );
 };
 const NavAuth = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Auth">
-      <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
-      <Stack.Screen options={{title:''}} name="Register" component={Register} />
+    <Stack.Navigator initialRouteName="Auth">
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="SignIn"
+        component={SignIn}
+      />
+      <Stack.Screen
+        options={{title: ''}}
+        name="Register"
+        component={Register}
+      />
     </Stack.Navigator>
   );
 };
 
 const ProfilNav = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Profile">
+    <Stack.Navigator initialRouteName="Profile">
       <Stack.Screen
         name="ProfileUser"
         options={{headerShown: false}}
@@ -56,11 +71,23 @@ const appRouter = () => {
   return isSignIn() != null ? (
     <Tab.Navigator>
       <Tab.Screen
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
+        }}
         name="Home"
         component={nav}
       />
-      <Tab.Screen options={{headerShown: false}} name="Profile" component={ProfilNav} />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => (
+            <Icon name="user-circle" color={color} size={26} />
+          ),
+        }}
+        name="Profile"
+        component={ProfilNav}
+      />
     </Tab.Navigator>
   ) : (
     <NavAuth />
