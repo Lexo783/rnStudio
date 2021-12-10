@@ -55,7 +55,7 @@ const DescriptionMovieModal = ({navigation, route}) => {
             </View>
 
             <Button
-              title={like.includes(data.id) ? 'Already liked' : 'Like'}
+              title={like.includes(data.id) ? 'Déjà aimé' : 'Aimer'}
               onPress={() => addLike(data.id)}
             />
 

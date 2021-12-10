@@ -15,6 +15,7 @@ import Register from '../component/Register';
 import EditUserProfileScreen from '../component/EditUserProfileScreen';
 import ChangeProfilePicture from '../component/ChangeProfilePicture';
 import DescriptionMovie from '../component/DescriptionMovie';
+import About from '../component/About';
 
 const nav = () => {
   return (
@@ -66,6 +67,14 @@ const ProfilNav = () => {
   );
 };
 
+const aboutNav = () => {
+  return (
+    <Stack.Navigator initialRouteName="about">
+      <Stack.Screen name="aboutApp" options={{title: ''}} component={About} />
+    </Stack.Navigator>
+  );
+};
+
 const appRouter = () => {
   console.log(isSignIn());
   return isSignIn() != null ? (
@@ -87,6 +96,14 @@ const appRouter = () => {
         }}
         name="Profile"
         component={ProfilNav}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => <Icon name="book" color={color} size={26} />,
+        }}
+        name="About"
+        component={aboutNav}
       />
     </Tab.Navigator>
   ) : (
