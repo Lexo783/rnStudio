@@ -47,11 +47,11 @@ const SignIn = ({navigation}) => {
             placeholder="ex: John@mail.com"
             onChangeText={email => setEmail(email)}
             autoCapitalize="none"
-            keyboardType='email-address'
+            keyboardType="email-address"
             textContentType={'emailAddress'}
           />
         </View>
-        
+
         <View style={styles.inputContainer}>
           <Text style={styles.text}>Votre Mot de passe</Text>
           <TextInput
@@ -63,12 +63,15 @@ const SignIn = ({navigation}) => {
             textContentType={'password'}
           />
         </View>
-        
+
         <View style={styles.authBtn}>
           <Button title="Connexion" onPress={() => firebaseSignIn()} />
         </View>
         <View style={styles.authBtn}>
-          <Button title="Inscription" onPress={() => navigation.push('Register')}/>
+          <Button
+            title="Inscription"
+            onPress={() => navigation.push('Register')}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
   },
   authBtn: {
     margin: 5,
-  }
+  },
 });
 
 export default SignIn;
