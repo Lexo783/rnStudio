@@ -3,11 +3,11 @@ import auth from '@react-native-firebase/auth';
 //import {initializeApp} from 'firebase/app';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserData} from '../redux/reducers/UserReducer';
 
 const IsSignIn = () => {
   const [initializing, setInitializing] = useState(true);
   const user = useSelector(s => s.user.user);
+  console.log('Is sign in : ', user);
 
   useEffect(() => {
     GoogleSignin.configure({

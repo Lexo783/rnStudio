@@ -22,10 +22,10 @@ const SignIn = ({navigation}) => {
     [dispatch],
   );
 
-  const firebaseSignIn = () => {
+  const firebaseSignIn = async () => {
     const data = {email, password};
     //return user
-    const user = getSignIn(data);
+    const user = await getSignIn(data);
     getUser(JSON.stringify(user));
   };
 

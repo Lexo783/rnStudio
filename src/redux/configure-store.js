@@ -11,8 +11,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import likeReducer from './reducers/LikeReducer';
-import imageReducer from './reducers/ImageReducer';
 
 const persistConfig = {
   key: 'root',

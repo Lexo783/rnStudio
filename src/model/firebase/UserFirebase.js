@@ -2,15 +2,11 @@ import {firebase} from './Firebase';
 
 async function getSignIn(values) {
   const data = {email: values.email, password: values.password};
-  console.log('signIn');
-  firebase
+  return firebase
     .auth()
     .signInWithEmailAndPassword(data.email, data.password)
     .then(response => {
-      console.log(response);
-      if (response.user) {
-        return response.user;
-      }
+      return response.user;
     })
     .catch(error => {
       console.log(error);
@@ -20,8 +16,7 @@ async function getSignIn(values) {
 async function registerUser(values) {
   const data = {email: values.email, password: values.password};
 
-  console.log('register');
-  firebase
+  return firebase
     .auth()
     .createUserWithEmailAndPassword(data.email, data.password)
     .then(userCredential => {
