@@ -1,8 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
-//import {initializeApp} from 'firebase/app';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const IsSignIn = () => {
   const [initializing, setInitializing] = useState(true);
