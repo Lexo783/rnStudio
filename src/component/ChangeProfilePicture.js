@@ -91,7 +91,7 @@ const ChangeProfilePicture = ({navigation}) => {
     let isStoragePermitted = await writeInGalleryPermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, res => {
-        if (res.userCancelled) {
+        if (res.didCancel) {
           alert('User cancelled camera picker');
           return;
         } else if (res.errorCode === 'camera_unavailable') {
@@ -104,6 +104,7 @@ const ChangeProfilePicture = ({navigation}) => {
           alert(res.errorMessage);
           return;
         }
+        console.log(res);
         setFilePath(res);
         updateImage(res.assets[0].uri);
       });
@@ -118,7 +119,7 @@ const ChangeProfilePicture = ({navigation}) => {
       quality: 1,
     };
     launchImageLibrary(options, res => {
-      if (res.userCancelled) {
+      if (res.didCancel) {
         alert('User cancelled camera picker');
         return;
       } else if (res.errorCode === 'camera_unavailable') {
@@ -131,20 +132,19 @@ const ChangeProfilePicture = ({navigation}) => {
         alert(res.errorMessage);
         return;
       }
-      setFilePath(res);
-      updateImage(res.assets[0].uri);
       console.log(res);
+      setFilePath(res);
+      if(res.assets[0].uri !== []) {  
+        updateImage(res.assets[0].uri);
+      }
     });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => goBack()}>
-        <Text>BACK</Text>
-      </TouchableOpacity>
       <Text style={styles.titleText}>Modifier ma photo de profil</Text>
       <View style={styles.editAvatarContainer}>
-        <Image source={{uri: image}} style={styles.img} />
+        <Image source={{uri: image ? image : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg'}} style={styles.img} />
         <TouchableOpacity
           style={styles.getImageBtn}
           activeOpacity={0.5}
@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     paddingVertical: 20,
+    backgroundColor: '#FFF'
   },
   pathText: {
     padding: 10,
@@ -198,6 +199,6 @@ const styles = StyleSheet.create({
   img: {
     width: 200,
     height: 200,
-    margin: 5,
+    marginBottom: 20,
   },
 });

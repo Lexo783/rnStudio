@@ -17,21 +17,18 @@ import DescriptionMovie from '../component/DescriptionMovie';
 
 const nav = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{headerShown: false}}
-      initialRouteName="Home">
-      <Stack.Screen name="HomeStack" component={MovieVue} />
-      <Stack.Screen name="Description" component={DescriptionMovie} />
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen options={{headerShown: false}} name="HomeStack" component={MovieVue} />
+      <Stack.Screen options={{title: ""}} name="Movie" component={DescriptionMovie} />
     </Stack.Navigator>
   );
 };
 const NavAuth = () => {
   return (
     <Stack.Navigator
-      screenOptions={{headerShown: false}}
       initialRouteName="Auth">
-      <Stack.Screen name="SignIn" component={SignIn} />
-      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
+      <Stack.Screen options={{title:''}} name="Register" component={Register} />
     </Stack.Navigator>
   );
 };
@@ -39,7 +36,6 @@ const NavAuth = () => {
 const ProfilNav = () => {
   return (
     <Stack.Navigator
-      screenOptions={{headerShown: false}}
       initialRouteName="Profile">
       <Stack.Screen
         name="ProfileUser"
@@ -61,10 +57,10 @@ const appRouter = () => {
     <Tab.Navigator>
       <Tab.Screen
         options={{headerShown: false}}
-        name="HomeTab"
+        name="Home"
         component={nav}
       />
-      <Tab.Screen name="Profile" component={ProfilNav} />
+      <Tab.Screen options={{headerShown: false}} name="Profile" component={ProfilNav} />
     </Tab.Navigator>
   ) : (
     <NavAuth />

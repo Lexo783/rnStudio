@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 //import {initializeApp} from 'firebase/app';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUserData} from '../redux/reducers/UserReducer';
+import {useSelector} from 'react-redux';
 
 const IsSignIn = () => {
   const [initializing, setInitializing] = useState(true);
@@ -26,8 +25,6 @@ const IsSignIn = () => {
     if (!data) {
       return;
     }
-    //getUser(JSON.stringify(data));
-    //setUser(data);
   };
 
   useEffect(() => {
