@@ -9,7 +9,7 @@ async function getSignIn(values) {
       return response.user;
     })
     .catch(error => {
-      console.log(error);
+      return error;
     });
 }
 
@@ -24,8 +24,7 @@ async function registerUser(values) {
       return userCredential.user;
     })
     .catch(error => {
-      console.log(error.code);
-      console.log(error.message);
+      return error.code;
     });
 }
 

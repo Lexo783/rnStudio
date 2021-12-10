@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -12,8 +12,18 @@ import {registerUser} from '../model/firebase/UserFirebase';
 const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (!password) {
+      return;
+    }
+    password.length < 6 ? setError(true) : setError(false);
+  }, [password]);
 
   const register = () => {
+    if (error) {
+      return;
+    }
     const data = {email, password};
     //return user
     registerUser(data);

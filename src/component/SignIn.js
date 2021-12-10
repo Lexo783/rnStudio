@@ -15,6 +15,8 @@ const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const [error, setError] = useState(false);
+
   const getUser = useCallback(
     response => {
       dispatch(setUserData(response));
@@ -26,6 +28,11 @@ const SignIn = ({navigation}) => {
     const data = {email, password};
     //return user
     const user = await getSignIn(data);
+    console.log(user);
+    if (user.code) {
+      setError(true);
+      return;
+    }
     getUser(JSON.stringify(user));
   };
 
