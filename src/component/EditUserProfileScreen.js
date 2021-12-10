@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   Image,
@@ -14,7 +14,7 @@ const EditUserProfileScreen = props => {
   const image = useSelector(s => s.user.image);
   const user = useSelector(s => s.user.user);
 
-  console.log(user);
+  console.log('edit profile: ', user);
 
   return (
     <SafeAreaView style={styles.profileContainer}>
@@ -26,10 +26,6 @@ const EditUserProfileScreen = props => {
               uri: image ? image : 'https://icon-library.com/images/icon-spiderman/icon-spiderman-16.jpg',
             }}
           />
-          <View style={styles.userInfos}>
-            <Text style={styles.subtitle}>Mon adresse mail</Text>
-            <Text style={styles.pseudo}>{user.user.mail}</Text>
-          </View>
         </View>
       </View>
       <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('Edit')}>
@@ -61,26 +57,6 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderWidth: 1,
     borderRadius: 150 / 2,
-  },
-  subtitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 15,
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  pseudo: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  rowText: {
-    color: '#777777',
   },
   editBtn: {
     backgroundColor: '#1F6FEB',
